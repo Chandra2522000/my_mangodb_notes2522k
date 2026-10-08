@@ -1,0 +1,162 @@
+Mangodb basics
+use student100 // utilizing database
+switched to db student100
+db.createCollection.student100
+db.student100.insertOne({
+  name: "Chandraleka",
+  age: 26,
+  city: "Bangalore"
+}); //  Insert a single document
+
+{
+  acknowledged: true,
+  insertedId: ObjectId('6ac787485b46386949edf0cd')
+}
+db.student100.insertMany([
+  { name: "Vishnupriya", age: 23, city: "Chennai" },
+  { name: "Anjali", age: 20, city: "Delhi" },
+  { name: "Saran", age: 15, city: "Madurai" }
+]);//Insert multiple documents
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6ac788005b46386949edf0ce'),
+    '1': ObjectId('6ac788005b46386949edf0cf'),
+    '2': ObjectId('6ac788005b46386949edf0d0')
+  }
+}
+db.student100.find()//displays all the documents
+{
+  _id: ObjectId('6ac787485b46386949edf0cd'),
+  name: 'Chandraleka',
+  age: 26,
+  city: 'Bangalore'
+}
+ db.student100.find({city:'Bangalore'})         // find Bangalore students
+{
+  _id: ObjectId('6ac787485b46386949edf0cd'),
+  name: 'Chandraleka',
+  age: 26,
+  city: 'Bangalore'
+}
+db.students.countDocuments()
+0
+db.student100.updateOne(
+  { name: "Vishnupriya" },
+  { $set: {age: 30 } }
+);//updating one values
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.student100.find()
+{
+  _id: ObjectId('6ac787485b46386949edf0cd'),
+  name: 'Chandraleka',
+  age: 26,
+  city: 'Bangalore'
+}
+{
+  _id: ObjectId('6ac788005b46386949edf0ce'),
+  name: 'Vishnupriya',
+  age: 30,
+  city: 'Chennai'
+}
+{
+  _id: ObjectId('6ac788005b46386949edf0cf'),
+  name: 'Anjali',
+  age: 20,
+  city: 'Delhi'
+}
+{
+  _id: ObjectId('6ac788005b46386949edf0d0'),
+  name: 'Saran',
+  age: 15,
+  city: 'Madurai'
+}
+
+db.products.updateMany(
+  { city: "Madurai" },
+  { $set: { age: 10 } }
+);//inserting many values
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+
+db.student100.updateMany(
+  { city: "Madurai" },
+  { $set: { age: 10 } }
+);//inserting many values
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+use college_student
+switched to db college_student
+db.createCollection("Grade")
+{ ok: 1 }
+db.Grade.insertOne({'name':'Chandraleka','gpa':8.9,'city':'Trichy'})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6ac78aab5b46386949edf0d1')
+}
+db.Grade.find()
+db.Grade.updateOne({'name':'Ram'},{$set:{'gpa':8.5}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Grade.updateMany({'gpa':8.1},{$set:{'gpa':8.9}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.Grade.find({'gpa':{$gt:8.2},'city':'Chennai'})
+{
+  _id: ObjectId('6ac78ba25b46386949edf0d3'),
+  name: 'Ram',
+  gpa: 8.5,
+  city: 'Chennai'
+}
+db.Grade.countDocuments()
+3
+db.Grade.deleteOne({'city':'Chennai'})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.Grade.deleteMany({'gpa':8.9})
+{
+  acknowledged: true,
+  deletedCount: 2
+}
+show collections
+Grade
+show databases
+admin            40.00 KiB
+college_student  72.00 KiB
+config           96.00 KiB
+local            40.00 KiB
+student1         76.00 KiB
+student100       72.00 KiB
+student_db       24.00 KiB
+db.student100.drop()//permenantly it will delete the database
+
+
